@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {getEnemies} from './services/enemies';
+import {getEnemies, patchEnemy, deleteArmy} from './services/enemies';
 import {getTroops} from './services/troops';
 import {addTroop} from './services/troops';
 import './styles/App.css';
@@ -55,10 +55,16 @@ class App extends Component {
   }
 
 
-  transformMinion() {
+  transformMinion(name, id) {
+    patchEnemy(name, id).then(() => {
+      this.seeEnemies();
+    })
   }
 
-  slayLeader() {
+  slayLeader(name, id) {
+    deleteArmy(name, id).then(() => {
+      this.seeEnemies();
+    })
   }
 
   handleChange(event) {
@@ -76,17 +82,21 @@ class App extends Component {
 
     const enemies = this.state.enemies.map((enemy, i) => {
       return (
-        <ul className='army'>
+        <ul key={i} className='army'>
           <h3>Enemy Army #{enemy.id}: {enemy.name}</h3>
 
-          <div className = 'leader'>
+          <div className = 'leader' onClick={() => this.slayLeader(enemy.shortname, enemy.id)}>
             {enemy.leader}
           </div>
 
           <ul className='minions'>
-            {enemy.minions.map((minion, i) => (<li className='minion' key={i}>{minion.type}</li>))}
+            {enemy.minions.map((minion, i) => (<li onClick={
+              () => {
+              this.transformMinion(enemy.shortname, i)
+              }
+              } 
+              className='minion' key={i}>{minion.type}</li>))}
           </ul>
-
 
         </ul>
       )

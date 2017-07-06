@@ -3,6 +3,10 @@
     {
       "id": 0,
       "recruit": "Bill the Archer"
+    },
+    {
+      "recruit": "Mason the Mighty",
+      "id": 1
     }
   ],
   "undead": [
@@ -70,11 +74,11 @@
   "barbarian_minions": [
     {
       "id": 1,
-      "type": "Barbarian"
+      "type": "frog"
     },
     {
       "id": 2,
-      "type": "Barbarian"
+      "type": "frog"
     },
     {
       "id": 3,
@@ -126,7 +130,7 @@
     },
     {
       "id": 15,
-      "type": "Barbarian"
+      "type": "frog"
     },
     {
       "id": 16,
@@ -146,17 +150,10 @@
     },
     {
       "id": 20,
-      "type": "Barbarian"
+      "type": "frog"
     }
   ],
-  "goblin": [
-    {
-      "id": 3,
-      "name": "Great Goblin Family",
-      "shortname": "goblin",
-      "leader": "Grandma Gob"
-    }
-  ],
+  "goblin": [],
   "goblin_minions": [
     {
       "id": 1,

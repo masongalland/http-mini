@@ -173,7 +173,7 @@ button:hover {
 
 .minion {
   display: inline-block;
-  cursor: cell;
+  cursor: pointer;
   padding: 14px;
   border-radius: 18px;
   margin: 0 12px 10px 12px;
