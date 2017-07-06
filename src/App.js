@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {getEnemies} from './services/enemies';
-import {getTroops} from './services/troops'
+import {getTroops} from './services/troops';
+import {addTroop} from './services/troops';
 import './styles/App.css';
 
 
@@ -12,16 +13,16 @@ class App extends Component {
     this.state = {
       enemies: [],
       troops: [],
-      defensesArray: []
+      newRecruit: ''
     };
 
     this.seeEnemies = this.seeEnemies.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.recruitTroop = this.recruitTroop.bind(this);
   }
 
   componentDidMount() {
-    getTroops().then(troops => {
-      this.setState({troops});
-    })
+    this.callTroops();
   }
   
   
@@ -34,10 +35,23 @@ class App extends Component {
   }
 
   callTroops() {
+    getTroops().then(troops => {
+      this.setState({troops});
+    })
 
   }
 
-  recruitTroop() {
+  recruitTroop(event) {
+    event.preventDefault();
+    if(this.state.newRecruit){
+      addTroop(this.state.newRecruit)
+      .then(() => {
+        this.callTroops()
+        this.setState({
+          newRecruit: ''
+        });
+      } )
+    }
   }
 
 
@@ -45,6 +59,12 @@ class App extends Component {
   }
 
   slayLeader() {
+  }
+
+  handleChange(event) {
+    this.setState({
+      newRecruit: event.target.value
+    });
   }
 
 
@@ -94,8 +114,8 @@ class App extends Component {
         <div className="reinforcements">
           <form type="submit">
             New Recruit Request Form:
-            <input id="paperwork" placeholder="Please indicate requested recruit"/>
-            <button>Enlist!</button>
+            <input id="paperwork" placeholder="Please indicate requested recruit" onChange={this.handleChange} value={this.state.newRecruit}/>
+            <button onClick={this.recruitTroop}>Enlist!</button>
           </form>
 
           <div id="wall">
